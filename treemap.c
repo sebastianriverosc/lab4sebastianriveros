@@ -114,18 +114,18 @@ Pair * nextTreeMap(TreeMap * tree) {
     if (tree->root == NULL || tree->current == NULL) return NULL; 
 
     if (tree->current->right == NULL) {
-        TreeNode * aux = tree->current->parent;
-        while(aux != NULL && aux->pair->key < tree->current->parent->pair->key){
-            aux = aux->parent;
+        while(tree->current->parent != NULL && tree->current->parent->right == tree->current){
+            tree->current = tree->current->parent;
         }
-        tree->current = aux;
+        tree->current = tree->current->parent;
+        if (tree->current->left != NULL) return NULL;
+        return tree->current->pair;
     }
     
-    else {
-        tree->current = tree->current->right;
-        while (tree->current->left != NULL) {
-            tree->current = tree->current->left;
-        }
+    
+    tree->current = tree->current->right;
+    while (tree->current->left != NULL) {
+        tree->current = tree->current->left;
     }
     return tree->current->pair;
 }
