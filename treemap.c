@@ -115,7 +115,10 @@ Pair * nextTreeMap(TreeMap * tree) {
 
     if (tree->current->right == NULL) {
         if (tree->current == tree->root) return NULL;  //ñeñe
-        tree->current = tree->current->parent;
+        void * auxKey = tree->current->pair->key;
+        while(tree->current->pair->key < auxKey){
+            tree->current = tree->current->parent;
+        }
     }
     else {
         tree->current = tree->current->right;
