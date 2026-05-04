@@ -149,6 +149,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         node->pair->key = suc->pair->key;
         node->pair->value = suc->pair->value;
         removeNode(tree, suc);
+        free(node);
         return;
     }
 
@@ -156,6 +157,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         TreeNode* hijo = (node->left != NULL) ? node->left : node->right;
         tree->root = hijo;
         if (hijo != NULL) hijo->parent = NULL;
+        free(node);
         return;
     }
     
@@ -182,6 +184,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
             node->right->parent = node->parent;
             node->parent->left = node->right;
         }
+        free(node);
         return;
     }
     if (node == node->parent->right) { //el nodo es el hijo de la derecha
@@ -193,6 +196,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
             node->right->parent = node->parent;
             node->parent->right = node->right;
         }
+        free(node);
         return;
     }
 //===================================================
