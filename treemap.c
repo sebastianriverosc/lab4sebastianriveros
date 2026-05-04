@@ -184,7 +184,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
     if (node == node->parent->left) { //el nodo está a la iquierda de su papá
         TreeNode *suc = minimum(node->right);
         node->pair->key = suc->pair->key;
-        node->pair->value = suc->pair->key;
+        node->pair->value = suc->pair->value;
         removeNode(tree, suc);
         return;
     }
