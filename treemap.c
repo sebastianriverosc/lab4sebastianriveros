@@ -141,7 +141,52 @@ TreeNode * minimum(TreeNode * x){
 // Reemplace los datos (key,value) de node con los del nodo "minimum". Elimine el nodo minimum (para hacerlo puede usar la misma función removeNode).
 
 void removeNode(TreeMap * tree, TreeNode* node) {
+    if (tree == NULL || tree->root == NULL) return;
+//==================SIN HIJOS=======================
+    if (node->left == NULL && node->right == NULL) {
+        if (node == node->parent->left) {
+            node->parent->left = NULL;
+        }
+        else {
+            node->parent->right = NULL;
+        }
+        free(node);
+        return;
+    }
+//==================================================
 
+//================UN HIJO===========================
+    if (node == node->parent->left) { //el nodo es el hijo de la izquierda
+        if (node->left != NULL && node->right == NULL) {
+            node->left->parent = node->parent;
+            node->parent->left = node->left;
+        }
+        if (node->left == NULL && node->right != NULL) {
+            node->right->parent = node->parent;
+            node->parent->left = node->right;
+        }
+        return;
+    }
+    if (node == node->parent->right) { //el nodo es el hijo de la derecha
+        if (node->left != NULL && node->right == NULL) {
+            node->left->parent = node->parent;
+            node->parent->right = node->left;
+        }
+        if (node->left == NULL && node->right != NULL) {
+            node->right->parent = node->parent;
+            node->parent->right = node->right;
+        }
+        return;
+    }
+//===================================================
+
+//===============CON DOS HIJOS=======================
+    if (node == node->parent->left) { //el nodo está a la iquierda de su papá
+        TreeNode *suc = minimum(node->right);
+        node->pair->key = suc->pair->key;
+        node->pair->value = suc->pair->key;
+        removeNode(tree, suc);
+    }
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
