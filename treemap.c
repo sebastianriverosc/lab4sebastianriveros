@@ -142,7 +142,24 @@ TreeNode * minimum(TreeNode * x){
 
 void removeNode(TreeMap * tree, TreeNode* node) {
     if (tree == NULL || tree->root == NULL) return;
-//==================SIN HIJOS=======================
+
+    //===============CON DOS HIJOS=======================
+    if (node->left != NULL && node->right != NULL) { //el nodo está a la iquierda de su papá
+        TreeNode *suc = minimum(node->right);
+        node->pair->key = suc->pair->key;
+        node->pair->value = suc->pair->value;
+        removeNode(tree, suc);
+        return;
+    }
+
+    if (node->parent == NULL) {
+        TreeNode* hijo = (node->left != NULL) ? node->left : node->right;
+        tree->root = hijo;
+        if (hijo != NULL) hijo->parent = NULL;
+        return;
+    }
+    
+    //==================SIN HIJOS=======================
     if (node->left == NULL && node->right == NULL) {
         if (node == node->parent->left) {
             node->parent->left = NULL;
@@ -180,21 +197,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
     }
 //===================================================
 
-//===============CON DOS HIJOS=======================
-    if (node->left != NULL && node->right != NULL) { //el nodo está a la iquierda de su papá
-        TreeNode *suc = minimum(node->right);
-        node->pair->key = suc->pair->key;
-        node->pair->value = suc->pair->value;
-        removeNode(tree, suc);
-        return;
-    }
 
-    if (node->parent == NULL) {
-        TreeNode* hijo = (node->left != NULL) ? node->left : node->right;
-        tree->root = hijo;
-        if (hijo != NULL) hijo->parent = NULL;
-        return;
-    }
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
