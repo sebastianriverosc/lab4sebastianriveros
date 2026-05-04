@@ -187,6 +187,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         node->pair->value = suc->pair->key;
         removeNode(tree, suc);
     }
+    return;
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
