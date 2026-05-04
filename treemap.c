@@ -143,7 +143,7 @@ TreeNode * minimum(TreeNode * x){
 void removeNode(TreeMap * tree, TreeNode* node) {
     if (tree == NULL || tree->root == NULL) return;
 
-    //===============CON DOS HIJOS=======================
+//===============CON DOS HIJOS=======================
     if (node->left != NULL && node->right != NULL) { //el nodo está a la iquierda de su papá
         TreeNode *suc = minimum(node->right);
         node->pair->key = suc->pair->key;
@@ -160,7 +160,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         return;
     }
     
-    //==================SIN HIJOS=======================
+//==================SIN HIJOS=======================
     if (node->left == NULL && node->right == NULL) {
         if (node == node->parent->left) {
             node->parent->left = NULL;
@@ -171,7 +171,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         free(node);
         return;
     }
-//==================================================
+
 
 //================UN HIJO===========================
     if (node == node->parent->left) { //el nodo es el hijo de la izquierda
